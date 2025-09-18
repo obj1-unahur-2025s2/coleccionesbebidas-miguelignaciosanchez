@@ -1,32 +1,43 @@
 import tito.*
 
 describe "test de tito" {
-
     method initialize() {
         tito.consumir(5,wisky)
     }
-
     method consumoTerere() {
         tito.consumir(5,terere)
     }
-
-
     test "tito tiene peso 70" {
         assert.equals(70,tito.peso())
     }
-
     test "la velocidad de tito es " {
         assert.equals(0.9**5*490/70,tito.velocidad())
     }
-
     test "ahora la velocidad es 7 porque consumio terere" {
         self.consumoTerere()
         assert.equals(7,tito.velocidad())
     }
-
     test "si consume cianuro la velocidad es cero porque muere" {
         tito.consumir(5, cianuro)
         assert.equals(0,tito.velocidad())
     }
-
+    test "velocidad con licuado" {
+    tito.consumir(1000, licuado)
+    assert.equals(( (10+20+15) * (1000/1000) * 490 / 70 ).round(3), tito.velocidad().round(3))
+    }
+    test "velocidad con agua saborizada" {
+    aguaSaborizada.acompañado(wisky)
+    tito.consumir(10, aguaSaborizada)
+    assert.equals(((1 + (0.9 ** (10 * 0.25))) * 490 / 70).round(3),tito.velocidad().round(3)
+    )
+    }
+    test "velocidad con coctel" {
+    coctel.limpiar()   
+    coctel.agregarBebida(terere)
+    coctel.agregarBebida(wisky)
+    tito.consumir(10, coctel)
+    var porcion = 10 / 2
+    var esperado = (terere.rendimiento(porcion) * wisky.rendimiento(porcion))
+    assert.equals((esperado * 490 / 70).round(3), tito.velocidad().round(3))
+    }
 }
